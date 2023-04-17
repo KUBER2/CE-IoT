@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+actor "ServerOwner" as so
+
+rectangle Server{
+[IoT device]-[server hardware]
+}
+
+cloud "CE-IoTP platform"{
+[IoT connector] - [Backend]
+[Backend]-[Reseach and discovery]
+[GUI]-[Backend]
+[Data base]-[Backend]
+[Backend]-[IoT platform connector]
+}
+
+[IoT platform FIWARE] <-->[Backend]
+[IoT device] --> [IoT connector]
+[GUI] <-down- so
+@enduml
