@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+actor "User" as user
+rectangle "External entity"{
+[IoT device]
+}
+
+cloud "CE-IoT Platform"{
+[IoT connector] 
+[CE-IoT HUB]
+[Analitic component]
+[GUI]
+[Data base]
+[IoT platform connector]
+[Authentication]
+}
+
+[IoT platform FIWARE] <-->[IoT platform connector]
+[IoT device] <--> [IoT connector]
+[GUI] <-right- user
+
+
+
+@enduml
