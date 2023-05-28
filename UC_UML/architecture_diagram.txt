@@ -12,10 +12,10 @@ cloud "CE-IoT Platform"{
 [GUI]
 [Data base]
 [IoT platform connector]
-[Authentication]
+[Security]
 }
 
-[IoT platform FIWARE] <-->[IoT platform connector]
+[External IoT platform] <-->[IoT platform connector]
 [IoT device] <--> [IoT connector]
 [GUI] <-right- user
 
