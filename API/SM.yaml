@@ -24,6 +24,8 @@ paths:
         - Mediation
       security:
         - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/addMediationRequest"
       responses:
         "200":
           $ref: "#/components/responses/MediationListResponse"
@@ -47,7 +49,22 @@ paths:
       responses:
         "200":
           $ref: "#/components/responses/MediationResponse"
-
+  /mediate:
+    post:
+      description: "Mediate according to the body request"
+      operationId: mediate
+      tags:
+        - Mediate
+      security:
+        - bearerAuth: []
+      summary: Mediate
+      requestBody:
+        $ref: "#/components/requestBodies/mediateRequest"
+      response:
+        "200":
+          $ref: "#/components/responses/mediateResponse/content"
+        "400":
+          description: "Invalid request"
 components:
   requestBodies:
     addMediationRequest:
@@ -56,6 +73,22 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Mediation"
+    mediateRequest:
+      description: "Mediate, do the mediation."
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                example: "Convert Celcius to Kelvins"
+              inputValue:
+                type: number
+                example: "45"
+              unit:
+                type: string
+                example: "C"
   responses:
     MediationListResponse:
       description: "Return list of the all mediations"
@@ -69,6 +102,22 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Mediation"
+    mediateResponse:
+      description: "Mediation response."
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                example: "Convert Celcius to Kelvins"
+              outputValue:
+                type: number
+                example: "318.15"
+              unit:
+                type: string
+                example: "K"
   schemas:
     Metadata:
       properties:
@@ -84,6 +133,14 @@ components:
         modifiedBy:
           type: string
           example: "user@accordion.eu"
+    NewMediation:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Kelvin-Celsius"
+        content:
+          type: object
     Mediation:
       allOf:
         - $ref: "#/components/schemas/NewMediation"
@@ -98,14 +155,7 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Mediation"
-    NewMediation:
-      type: object
-      properties:
-        name:
-          type: stringa
-          example: "Kelvin-Celsius"
-        content:
-          type: object
+
   securitySchemes:
     bearerAuth:
       type: oauth2
